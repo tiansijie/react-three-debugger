@@ -7,7 +7,7 @@ const initialState = {
 export default function todos(state = initialState, action) {
   switch (action.type) {
     case SET_SELECTION:
-      return state.selected = action.selected
+      return state.selected = action.selected || {};
     default:
       return state
   }

@@ -18,6 +18,7 @@
     "less": "^2.5.3",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
+    "react-infinity-menu": "^2.1.2",
     "react-redux": "^4.0.6",
     "redux": "^3.0.5",
     "three": "^0.73.0",

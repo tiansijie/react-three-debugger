@@ -15,12 +15,14 @@ export default class ThreeView extends React.Component {
 				this.INTERSECTED = intersects[ 0 ].object;
 				this.INTERSECTED.currentHex = this.INTERSECTED.material.emissive.getHex();
 				this.INTERSECTED.material.emissive.setHex( 0xff0000 );
-				//console.log(this.INTERSECTED);
 				this.props.actions.setSelection(this.INTERSECTED);
 			}
 		} else {
 			if ( this.INTERSECTED ) this.INTERSECTED.material.emissive.setHex( this.INTERSECTED.currentHex );
 			this.INTERSECTED = null;
+			if (this.props.store.threeView.uuid) {
+				//this.props.actions.setSelection(null);
+			}
 		}
 		this.renderer.render( this.scene, this.camera );
 	}
