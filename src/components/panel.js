@@ -1,6 +1,6 @@
 import React from 'react';
 import InfinityMenu from 'react-infinity-menu';
-import '../../node_modules/react-infinity-menu/src/infinity-menu.css';
+import './panel.less';
 
 export default class Panel extends React.Component {
 	componentWillMount() {
@@ -10,7 +10,7 @@ export default class Panel extends React.Component {
 	}
 
 
-	travelObj(selected, node) {
+	travelChildObj(selected, node) {
 		node.children = Object.keys(selected).reduce((prev, curr, index) => {
 			let subTree = {};
 			subTree.name = curr;
@@ -18,7 +18,7 @@ export default class Panel extends React.Component {
 			subTree.isOpen = false;
 			const currObj = selected[curr];
 			if (typeof currObj === 'object') {
-				this.travelObj(currObj, subTree);
+				this.travelChildObj(currObj, subTree);
 			}
 			if (typeof currObj === 'string' || typeof currObj === 'number' || typeof currObj === 'boolean') {
 				subTree.name += " - " + currObj;
@@ -31,7 +31,6 @@ export default class Panel extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		const selected = nextProps.store.threeView;
-		console.log(selected);
 		if (selected) {
 			const tree = Object.keys(selected).reduce((prev, curr, index) => {
 				if (curr === "position" || curr === "type" || curr === "rotation" || curr === "userData" || curr === "scale" || curr === "uuid") {
@@ -41,7 +40,7 @@ export default class Panel extends React.Component {
 					subTree.isOpen = false;
 					const currObj = selected[curr];
 					if (typeof currObj === 'object') {
-						this.travelObj(currObj, subTree);
+						this.travelChildObj(currObj, subTree);
 					}
 					if (typeof currObj === 'string' || typeof currObj === 'number' || typeof currObj === 'boolean') {
 						subTree.name += " - " + currObj;
@@ -67,10 +66,10 @@ export default class Panel extends React.Component {
 		return <div
 			style={{
 			height: '100%',
+			width: '100%',
 			display: 'block'
 			}}
 		>
-			I am the Panel
 			<InfinityMenu
 				tree={this.state.tree}
 				onNodeMouseClick={this.onNodeMouseClick.bind(this)}

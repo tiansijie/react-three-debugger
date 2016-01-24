@@ -21073,25 +21073,6 @@
 			key: 'webglRender',
 			value: function webglRender() {
 				requestAnimationFrame(this.webglRender.bind(this));
-				this.raycaster.setFromCamera(this.mouse, this.camera);
-
-				var intersects = this.raycaster.intersectObjects(this.scene.children);
-
-				if (intersects.length > 0) {
-					if (this.INTERSECTED != intersects[0].object) {
-						if (this.INTERSECTED) this.INTERSECTED.material.emissive.setHex(this.INTERSECTED.currentHex);
-						this.INTERSECTED = intersects[0].object;
-						this.INTERSECTED.currentHex = this.INTERSECTED.material.emissive.getHex();
-						this.INTERSECTED.material.emissive.setHex(0xff0000);
-						this.props.actions.setSelection(this.INTERSECTED);
-					}
-				} else {
-					if (this.INTERSECTED) this.INTERSECTED.material.emissive.setHex(this.INTERSECTED.currentHex);
-					this.INTERSECTED = null;
-					if (this.props.store.threeView.uuid) {
-						//this.props.actions.setSelection(null);
-					}
-				}
 				this.renderer.render(this.scene, this.camera);
 			}
 		}, {
@@ -21108,21 +21089,51 @@
 				});
 				this.renderer.setSize(this.props.width, this.props.height);
 
+				var light = new _three2.default.AmbientLight(0x404040); // soft white light
+				this.scene.add(light);
+
+				var light = new _three2.default.HemisphereLight(0xffffbb, 0x080820, 1);
+				this.scene.add(light);
+
 				this.raycaster = new _three2.default.Raycaster();
-				var geometry = new _three2.default.BoxGeometry(1, 1, 1);
-				var material = new _three2.default.MeshLambertMaterial({ color: Math.random() * 0xffffff });
-				var cube = new _three2.default.Mesh(geometry, material);
-				cube.rotation.x = 20;
-				this.scene.add(cube);
-				this.camera.position.z = 5;
+
+				for (var i = 0; i < 20; ++i) {
+					var geometry = new _three2.default.BoxGeometry(1, 1, 1);
+					var material = new _three2.default.MeshLambertMaterial({ color: Math.random() * 0xffffff });
+					var cube = new _three2.default.Mesh(geometry, material);
+					cube.position.set(-5 + Math.random() * 10, -5 + Math.random() * 10, Math.random() * 10);
+					cube.rotation.x = 20;
+					this.scene.add(cube);
+				}
+				this.camera.position.z = 20;
 				this.webglRender();
 			}
 		}, {
-			key: 'onMouseMove',
-			value: function onMouseMove(e) {
+			key: 'onMouseDown',
+			value: function onMouseDown(e) {
 				e.preventDefault();
 				this.mouse.x = e.clientX / this.props.width * 2 - 1;
 				this.mouse.y = -(e.clientY / this.props.height) * 2 + 1;
+
+				this.raycaster.setFromCamera(this.mouse, this.camera);
+
+				var intersects = this.raycaster.intersectObjects(this.scene.children);
+
+				if (intersects.length > 0) {
+					if (this.INTERSECTED != intersects[0].object) {
+						if (this.INTERSECTED) this.INTERSECTED.material.emissive.setHex(this.INTERSECTED.currentHex);
+						this.INTERSECTED = intersects[0].object;
+						this.INTERSECTED.currentHex = this.INTERSECTED.material.emissive.getHex();
+						this.INTERSECTED.material.emissive.setHex(0xff0000);
+						this.props.actions.setSelection(this.INTERSECTED);
+					}
+				} else {
+					if (this.INTERSECTED) this.INTERSECTED.material.emissive.setHex(this.INTERSECTED.currentHex);
+					this.INTERSECTED = null;
+					if (this.props.store.threeView.uuid) {
+						this.props.actions.setSelection(null);
+					}
+				}
 			}
 		}, {
 			key: 'render',
@@ -21130,8 +21141,8 @@
 				var _this2 = this;
 
 				return _react2.default.createElement('canvas', {
-					onMouseMove: function onMouseMove(e) {
-						return _this2.onMouseMove(e);
+					onMouseDown: function onMouseDown(e) {
+						return _this2.onMouseDown(e);
 					},
 					ref: 'webgl'
 				});
@@ -57358,7 +57369,7 @@
 
 	var _reactInfinityMenu2 = _interopRequireDefault(_reactInfinityMenu);
 
-	__webpack_require__(193);
+	__webpack_require__(195);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -57385,8 +57396,8 @@
 				});
 			}
 		}, {
-			key: 'travelObj',
-			value: function travelObj(selected, node) {
+			key: 'travelChildObj',
+			value: function travelChildObj(selected, node) {
 				var _this2 = this;
 
 				node.children = Object.keys(selected).reduce(function (prev, curr, index) {
@@ -57396,7 +57407,7 @@
 					subTree.isOpen = false;
 					var currObj = selected[curr];
 					if ((typeof currObj === 'undefined' ? 'undefined' : _typeof(currObj)) === 'object') {
-						_this2.travelObj(currObj, subTree);
+						_this2.travelChildObj(currObj, subTree);
 					}
 					if (typeof currObj === 'string' || typeof currObj === 'number' || typeof currObj === 'boolean') {
 						subTree.name += " - " + currObj;
@@ -57412,7 +57423,6 @@
 				var _this3 = this;
 
 				var selected = nextProps.store.threeView;
-				console.log(selected);
 				if (selected) {
 					var tree = Object.keys(selected).reduce(function (prev, curr, index) {
 						if (curr === "position" || curr === "type" || curr === "rotation" || curr === "userData" || curr === "scale" || curr === "uuid") {
@@ -57422,7 +57432,7 @@
 							subTree.isOpen = false;
 							var currObj = selected[curr];
 							if ((typeof currObj === 'undefined' ? 'undefined' : _typeof(currObj)) === 'object') {
-								_this3.travelObj(currObj, subTree);
+								_this3.travelChildObj(currObj, subTree);
 							}
 							if (typeof currObj === 'string' || typeof currObj === 'number' || typeof currObj === 'boolean') {
 								subTree.name += " - " + currObj;
@@ -57452,10 +57462,10 @@
 					{
 						style: {
 							height: '100%',
+							width: '100%',
 							display: 'block'
 						}
 					},
-					'I am the Panel',
 					_react2.default.createElement(_reactInfinityMenu2.default, {
 						tree: this.state.tree,
 						onNodeMouseClick: this.onNodeMouseClick.bind(this)
@@ -58440,13 +58450,15 @@
 
 
 /***/ },
-/* 193 */
+/* 193 */,
+/* 194 */,
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(194);
+	var content = __webpack_require__(196);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(189)(content, {});
@@ -58455,8 +58467,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./infinity-menu.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./infinity-menu.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./panel.less", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./panel.less");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -58466,7 +58478,7 @@
 	}
 
 /***/ },
-/* 194 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(188)();
@@ -58474,7 +58486,7 @@
 
 
 	// module
-	exports.push([module.id, ".infinity-menu-node-container {\n\twidth: 100%;\n\tbackground-color: rgb(137, 139, 143);\n\tcolor: rgb(255, 255, 255);\n\theight: 40px;\n\tpadding-left: 10px;\n\tpadding-top: 20px;\n\tborder-bottom: solid 1px rgb(73, 73, 73);\n}\n\n.infinity-menu-node-container:hover {\n\tbackground-color: rgb(73, 73, 73);\n}\n\n.infinity-menu-leaf-container {\n\twidth: 100%;\n\tbackground-color: rgb(94, 96, 99);\n\tcolor: rgb(255, 255, 255);\n\theight: 30px;\n\tpadding-left: 20px;\n\tpadding-top: 15px;\n\tborder-bottom: solid 1px rgb(73, 73 ,73);\n}\n\n.infinity-menu-leaf-container:hover {\n\tbackground-color: rgb(73, 73, 73);\n}\n", ""]);
+	exports.push([module.id, ".infinity-menu-node-container {\n  width: 100%;\n  background-color: #898b8f;\n  color: #ffffff;\n  height: 40px;\n  padding-left: 10px;\n  padding-top: 20px;\n  border-bottom: solid 1px #494949;\n}\n.infinity-menu-node-container:hover {\n  background-color: #494949;\n}\n.infinity-menu-leaf-container {\n  width: 100%;\n  background-color: #5e6063;\n  color: #ffffff;\n  text-overflow: ellipsis;\n  height: 30px;\n  padding-left: 20px;\n  padding-top: 15px;\n  border-bottom: solid 1px #494949;\n}\n.infinity-menu-leaf-container:hover {\n  background-color: #494949;\n}\n", ""]);
 
 	// exports
 
