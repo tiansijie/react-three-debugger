@@ -16,10 +16,12 @@
     "babel-core": "^6.4.0",
     "express": "^4.13.3",
     "less": "^2.5.3",
+    "material-ui": "^0.14.3",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-infinity-menu": "^2.1.2",
     "react-redux": "^4.0.6",
+    "react-tap-event-plugin": "^0.2.1",
     "redux": "^3.0.5",
     "three": "^0.73.0",
     "webpack": "^1.12.11"

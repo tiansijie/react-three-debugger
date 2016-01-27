@@ -3,6 +3,7 @@ var assetsPath = path.resolve(__dirname, '../public');
 
 module.exports = {
     entry: "./src/index.js",
+    devtool: "source-map",
     output: {
         path: assetsPath,
         filename: "bundle.js"
