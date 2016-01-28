@@ -12,3 +12,6 @@ Still under development.
 `npm start`
 
 go to `http://localhost:4745/`
+
+### Demo
+![Awesome demo](/react-webgl-debugger.gif)
