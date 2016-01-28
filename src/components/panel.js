@@ -15,7 +15,7 @@ export default class Panel extends React.Component {
 			let subTree = {};
 			subTree.name = curr;
 			subTree.id = index;
-			subTree.isOpen = false;
+			subTree.isOpen = true;
 			subTree.customComponent = MenuComponent;
 			const currObj = selected[curr];
 			if (typeof currObj === 'object') {
@@ -38,7 +38,7 @@ export default class Panel extends React.Component {
 					let subTree = {};
 					subTree.name = curr;
 					subTree.id = index;
-					subTree.isOpen = false;
+					subTree.isOpen = true;
 					subTree.customComponent = MenuComponent;
 					const currObj = selected[curr];
 					if (typeof currObj === 'object') {
