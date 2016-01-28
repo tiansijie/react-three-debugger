@@ -29,15 +29,19 @@ export default class ThreeView extends React.Component {
 
 		this.raycaster = new THREE.Raycaster();
 
-		for (var i = 0; i < 20; ++i) {
-			var geometry = new THREE.BoxGeometry(1, 1, 1);
+		for (var i = 0; i < 30; ++i) {
+			var geometry = new THREE.BoxGeometry(2, 2, 2);
 			var material = new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } );
 			var cube = new THREE.Mesh(geometry, material);
-			cube.position.set(-5 + Math.random() * 10, -5 + Math.random() * 10, Math.random() * 10);
-			cube.rotation.x = 20;
+			cube.position.set(-10 + Math.random() * 15, -10 + Math.random() * 15, Math.random() * 10);
+			cube.scale.set( 2 * Math.random(), 2 * Math.random(), 2 * Math.random())
+			cube.rotation.x = 90 * Math.random();
+			cube.rotation.y = 90 * Math.random();
 			this.scene.add(cube);
 		}
-		this.camera.position.z = 20;
+		this.camera.position.z = 25;
+		this.camera.position.y = -5;
+		this.camera.position.x = -5;
 		this.webglRender();
 	}
 
