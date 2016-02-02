@@ -13,20 +13,25 @@ export default class Panel extends React.Component {
 	travelChildObj(selected, node) {
 		if (selected) {
 			node.children = Object.keys(selected).reduce((prev, curr, index) => {
-				let subTree = {};
-				subTree.name = curr;
-				subTree.id = index;
-				subTree.isOpen = true;
-				subTree.customComponent = MenuComponent;
-				const currObj = selected[curr];
-				if (typeof currObj === 'object') {
-					this.travelChildObj(currObj, subTree);
-				}
-				if (typeof currObj === 'string' || typeof currObj === 'number' || typeof currObj === 'boolean') {
-					subTree.name += " - " + currObj;
-				}
+				if (curr.indexOf("__") !== 0 && curr.indexOf("_") !== 0) {
+					let subTree = {};
+					subTree.name = curr;
+					subTree.id = index;
+					subTree.isOpen = true;
+					subTree.customComponent = MenuComponent;
+					const currObj = selected[curr];
+					if (typeof currObj === 'object') {
+						this.travelChildObj(currObj, subTree);
+					}
+					if (typeof currObj === 'string' || typeof currObj === 'number' || typeof currObj === 'boolean') {
+						subTree.name += " - " + currObj || null;
+					}
+					else {
+						subTree.name += " - " + typeof currObj;
+					}
 
-				prev.push(subTree);
+					prev.push(subTree);
+				}
 				return prev;
 			}, []);
 		}
@@ -36,7 +41,7 @@ export default class Panel extends React.Component {
 		const selected = nextProps.store.threeView;
 		if (selected) {
 			const tree = Object.keys(selected).reduce((prev, curr, index) => {
-				if (curr === "position" || curr === "type" || curr === "rotation" || curr === "scale" || curr === "uuid" || curr === "matrix" || curr === "material") {
+				if (curr === "position" || curr === "type" || curr === "rotation" || curr === "scale" || curr === "uuid" || curr === "matrix" || curr === "material" || curr === "quaternion") {
 					let subTree = {};
 					subTree.name = curr;
 					subTree.id = index;
