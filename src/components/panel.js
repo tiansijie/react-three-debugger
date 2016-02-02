@@ -13,7 +13,7 @@ export default class Panel extends React.Component {
 	travelChildObj(selected, node) {
 		if (selected) {
 			node.children = Object.keys(selected).reduce((prev, curr, index) => {
-				if (curr.indexOf("__") !== 0 && curr.indexOf("_") !== 0) {
+				if (curr.indexOf("__") !== 0 && curr.indexOf("_") !== 0 && curr !== "vertices" && curr !== "faces" && curr !== "faceVertexUvs") {
 					let subTree = {};
 					subTree.name = curr;
 					subTree.id = index;
@@ -41,7 +41,7 @@ export default class Panel extends React.Component {
 		const selected = nextProps.store.threeView;
 		if (selected) {
 			const tree = Object.keys(selected).reduce((prev, curr, index) => {
-				if (curr === "position" || curr === "type" || curr === "rotation" || curr === "scale" || curr === "uuid" || curr === "matrix" || curr === "material" || curr === "quaternion") {
+				if (curr === "position" || curr === "type" || curr === "rotation" || curr === "scale" || curr === "uuid" || curr === "matrix" || curr === "material" || curr === "quaternion" || curr === "geometry") {
 					let subTree = {};
 					subTree.name = curr;
 					subTree.id = index;
