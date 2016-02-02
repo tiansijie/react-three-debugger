@@ -11,30 +11,32 @@ export default class Panel extends React.Component {
 	}
 
 	travelChildObj(selected, node) {
-		node.children = Object.keys(selected).reduce((prev, curr, index) => {
-			let subTree = {};
-			subTree.name = curr;
-			subTree.id = index;
-			subTree.isOpen = true;
-			subTree.customComponent = MenuComponent;
-			const currObj = selected[curr];
-			if (typeof currObj === 'object') {
-				this.travelChildObj(currObj, subTree);
-			}
-			if (typeof currObj === 'string' || typeof currObj === 'number' || typeof currObj === 'boolean') {
-				subTree.name += " - " + currObj;
-			}
+		if (selected) {
+			node.children = Object.keys(selected).reduce((prev, curr, index) => {
+				let subTree = {};
+				subTree.name = curr;
+				subTree.id = index;
+				subTree.isOpen = true;
+				subTree.customComponent = MenuComponent;
+				const currObj = selected[curr];
+				if (typeof currObj === 'object') {
+					this.travelChildObj(currObj, subTree);
+				}
+				if (typeof currObj === 'string' || typeof currObj === 'number' || typeof currObj === 'boolean') {
+					subTree.name += " - " + currObj;
+				}
 
-			prev.push(subTree);
-			return prev;
-		}, []);
+				prev.push(subTree);
+				return prev;
+			}, []);
+		}
 	}
 
 	componentWillReceiveProps(nextProps) {
 		const selected = nextProps.store.threeView;
 		if (selected) {
 			const tree = Object.keys(selected).reduce((prev, curr, index) => {
-				if (curr === "position" || curr === "type" || curr === "rotation" || curr === "userData" || curr === "scale" || curr === "uuid" || curr === "matrix") {
+				if (curr === "position" || curr === "type" || curr === "rotation" || curr === "scale" || curr === "uuid" || curr === "matrix" || curr === "material") {
 					let subTree = {};
 					subTree.name = curr;
 					subTree.id = index;
@@ -45,7 +47,7 @@ export default class Panel extends React.Component {
 						this.travelChildObj(currObj, subTree);
 					}
 					if (typeof currObj === 'string' || typeof currObj === 'number' || typeof currObj === 'boolean') {
-						subTree.name += " - " + currObj;
+						subTree.name += " - " + currObj || "null";
 					}
 					prev.push(subTree);
 				}
