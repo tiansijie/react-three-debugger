@@ -1,8 +1,8 @@
 var path = require('path');
-var assetsPath = path.resolve(__dirname, '../public');
+var assetsPath = path.resolve(__dirname, './public');
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: "./example/src/index.js",
     devtool: "source-map",
     output: {
         path: assetsPath,
