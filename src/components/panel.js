@@ -13,11 +13,11 @@ export default class Panel extends React.Component {
 	travelChildObj(selected, node) {
 		if (selected) {
 			node.children = Object.keys(selected).reduce((prev, curr, index) => {
-				if (curr.indexOf("__") !== 0 && curr.indexOf("_") !== 0 && curr !== "vertices" && curr !== "faces" && curr !== "faceVertexUvs") {
+				if (curr.indexOf("__") !== 0 && curr !== "vertices" && curr !== "faces" && curr !== "faceVertexUvs") {
 					let subTree = {};
 					subTree.name = curr;
 					subTree.id = index;
-					subTree.isOpen = true;
+					subTree.isOpen = false;
 					subTree.customComponent = MenuComponent;
 					const currObj = selected[curr];
 					if (typeof currObj === 'object') {
@@ -45,7 +45,7 @@ export default class Panel extends React.Component {
 					let subTree = {};
 					subTree.name = curr;
 					subTree.id = index;
-					subTree.isOpen = true;
+					subTree.isOpen = false;
 					subTree.customComponent = MenuComponent;
 					const currObj = selected[curr];
 					if (typeof currObj === 'object') {

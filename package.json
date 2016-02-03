@@ -14,9 +14,9 @@
   "dependencies": {
     "babel": "^6.3.26",
     "babel-core": "^6.4.0",
+    "classnames": "^2.2.3",
     "express": "^4.13.3",
     "less": "^2.5.3",
-    "material-ui": "^0.14.3",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-infinity-menu": "^2.1.2",

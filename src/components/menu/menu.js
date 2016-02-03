@@ -1,9 +1,21 @@
 import React from 'react';
-import RaisedButton from 'material-ui/lib/raised-button';
+import classNames from 'classnames';
+import './menu.less';
 
 export class MenuComponent extends React.Component {
+
+	onClick(e) {
+		e.preventDefault();
+		this.props.onClick(e)
+	}
+
 	render() {
 		const isLeaf = this.props.isOpen === undefined;
-		return <RaisedButton fullWidth={true} style={{display: 'block', borderBottomStyle: 'ridge', borderBottomWidth: '1', borderColor: 'black'}} disabled={isLeaf} onClick={(e) => this.props.onClick(e)}>{this.props.name}</RaisedButton>;
+		const menuClassNames = classNames(
+			"menu-item",
+			{"menu-active": !isLeaf},
+			{"menu-disabled": isLeaf}
+		)
+		return <div className={menuClassNames} onClick={(e) => this.onClick(e)}>{this.props.name}</div>;
 	}
 }
