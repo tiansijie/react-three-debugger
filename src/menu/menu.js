@@ -10,9 +10,9 @@ export class MenuComponent extends React.Component {
 	render() {
 		const isLeaf = this.props.isOpen === undefined;
 		const menuClassNames = classNames(
-			"react-webgl-degbugger-menu-item",
-			{"react-webgl-degbugger-menu-active": !isLeaf},
-			{"react-webgl-degbugger-menu-disabled": isLeaf}
+			"react-threejs-degbugger-menu-item",
+			{"react-threejs-degbugger-menu-active": !isLeaf},
+			{"react-threejs-degbugger-menu-disabled": isLeaf}
 		)
 		return <div className={menuClassNames} onClick={(e) => this.onClick(e)}>{this.props.name}</div>;
 	}

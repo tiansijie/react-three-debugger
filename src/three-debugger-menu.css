@@ -2,7 +2,7 @@ ul {
 	margin: 0px;
 }
 
-.react-webgl-degbugger-menu-item {
+.react-threejs-degbugger-menu-item {
 	display: block;
 	border-bottom-style: ridge;
 	border-bottom-width: 1px;
@@ -13,13 +13,13 @@ ul {
 	color: white;
 }
 
-.react-webgl-degbugger-menu-active {
+.react-threejs-degbugger-menu-active {
 	background-color: blue;
 }
 
-.react-webgl-degbugger-menu-active:hover {
+.react-threejs-degbugger-menu-active:hover {
 	background-color: red;
 }
-.react-webgl-degbugger-menu-disabled {
+.react-threejs-degbugger-menu-disabled {
 	background-color: gray;
 }

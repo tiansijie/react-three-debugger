@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import ThreeView from './three-view';
-import Panel from '../../../src/webgl-debugger-menu';
-import "../../../src/webgl-debugger-menu.css";
+import Panel from '../../../src/three-debugger-menu';
+import "../../../src/three-debugger-menu.css";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as ThreeViewActions from '../actions/threeView'

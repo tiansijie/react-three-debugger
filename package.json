@@ -1,8 +1,8 @@
 {
-  "name": "react-webgl-debug",
+  "name": "react-three-debugger",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/infinity-menu.js",
+  "main": "./dist/three-debugger-menu.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d dist --presets react,es2015",
