@@ -1,7 +1,6 @@
 import React from 'react';
 import { MenuComponent } from './menu/menu';
 import InfinityMenu from 'react-infinity-menu';
-import './panel.less';
 
 export default class Panel extends React.Component {
 	componentWillMount() {

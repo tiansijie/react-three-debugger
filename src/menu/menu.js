@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import './menu.less';
 
 export class MenuComponent extends React.Component {
 	onClick(e) {

@@ -1,3 +1,7 @@
+ul {
+	margin: 0px;
+}
+
 .react-webgl-degbugger-menu-item {
 	display: block;
 	border-bottom-style: ridge;
@@ -11,11 +15,11 @@
 
 .react-webgl-degbugger-menu-active {
 	background-color: blue;
-	&:hover{
-		background-color: red;
-	}
 }
 
+.react-webgl-degbugger-menu-active:hover {
+	background-color: red;
+}
 .react-webgl-degbugger-menu-disabled {
 	background-color: gray;
 }
