@@ -2,7 +2,7 @@ import React from 'react';
 import { MenuComponent } from './menu/menu';
 import InfinityMenu from 'react-infinity-menu';
 
-export default class Panel extends React.Component {
+export default class ThreeDebuggerMenu extends React.Component {
 	componentWillMount() {
 		this.setState({
 			tree: []
@@ -37,7 +37,7 @@ export default class Panel extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const selected = nextProps.store.threeView;
+		const selected = nextProps.threeObject;
 		if (selected) {
 			const tree = Object.keys(selected).reduce((prev, curr, index) => {
 				if (curr === "position" || curr === "type" || curr === "rotation" || curr === "scale" || curr === "uuid" || curr === "matrix" || curr === "material" || curr === "quaternion" || curr === "geometry") {
@@ -86,3 +86,7 @@ export default class Panel extends React.Component {
 		</div>;
 	}
 }
+
+ThreeDebuggerMenu.propTypes = {
+	threeObject: React.PropTypes.object
+};

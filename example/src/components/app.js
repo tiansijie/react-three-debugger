@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import ThreeView from './three-view';
-import Panel from '../../../src/three-debugger-menu';
+import ThreeDebuggerMenu from '../../../src/three-debugger-menu';
 import "../../../src/three-debugger-menu.css";
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -37,9 +37,8 @@ export default class App extends React.Component {
 						display: 'inline-block'
 					}}
 				>
-					<Panel
-						actions={actions}
-						store={store}
+					<ThreeDebuggerMenu
+						threeObject={store.threeView}
 					/>
 				</div>
 			</div>

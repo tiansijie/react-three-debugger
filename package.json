@@ -1,7 +1,19 @@
 {
   "name": "react-three-debugger",
   "version": "1.0.0",
-  "description": "",
+  "description": "A react component that can display threejs object attributes as you pass in an threejs object",
+  "keywords": [
+    "react",
+    "menu",
+    "threejs",
+    "three",
+    "webgl",
+    "debugger",
+    "three-debugger",
+    "webgl-debugger",
+    "reactjs",
+    "tool"
+  ],
   "main": "./dist/three-debugger-menu.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,10 +30,10 @@
     "classnames": "^2.2.3",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
-    "react-infinity-menu": "^2.1.2",
-    "three": "^0.73.0"
+    "react-infinity-menu": "^2.1.2"
   },
   "devDependencies": {
+    "three": "^0.73.0",
     "babel": "^6.3.26",
     "babel-cli": "^6.4.5",
     "babel-core": "^6.4.0",
