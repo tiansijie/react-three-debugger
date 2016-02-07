@@ -1,6 +1,6 @@
-# React WebGL Debugger
+# React Three Debugger
 
-	A tool that user can pick any object in WebGL(three.js) and see its attributes
+	A tool that user can pick any object in three.js and see its attributes
 
 Still under development.
 
