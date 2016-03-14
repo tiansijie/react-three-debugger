@@ -2,8 +2,6 @@
 
 	A tool that user can pick any object in three.js and see its attributes
 
-Still under development.
-
 ### HOW TO USE
 `npm install`
 
